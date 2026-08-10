@@ -1,0 +1,183 @@
+
+expenses = [
+    {"amount": 500.00, "desc": "Lunch", "category": "Food"},
+    {"amount": 1500.00, "desc": "Transport", "category": "Transport"},
+    {"amount": 800.00, "desc": "Internet bundle", "category": "Communication"},
+    {"amount": 1200.00, "desc": "Groceries", "category": "Food"}
+]
+
+
+
+def add_expense():
+    print("\n--- Add Expense ---")
+
+  
+    while True:
+        try:
+            amount = float(input("Enter amount: "))
+
+            if amount <= 0:
+                print("Amount must be greater than 0.")
+                continue
+
+            break
+
+        except ValueError:
+            print("Invalid amount. Please enter a number.")
+
+    
+    while True:
+        desc = input("Enter description: ").strip()
+
+        if desc == "":
+            print("Description cannot be empty.")
+        else:
+            break
+
+   
+    category = input("Enter category: ").strip()
+
+    if category == "":
+        category = "Uncategorized"
+
+   
+    expense = {
+        "amount": amount,
+        "desc": desc,
+        "category": category
+    }
+
+    expenses.append(expense)
+
+    print("Expense added successfully!")
+
+
+
+def list_expenses():
+    print("\n--- All Expenses ---")
+
+    if not expenses:
+        print("No expenses recorded.")
+        return
+
+    for index, expense in enumerate(expenses, start=1):
+        print(
+            f"{index}. "
+            f"Amount: KSh {expense['amount']:.2f} | "
+            f"Description: {expense['desc']} | "
+            f"Category: {expense['category']}"
+        )
+
+
+
+def filter_by_category():
+    print("\n--- Filter by Category ---")
+
+    category = input("Enter category: ").strip()
+
+    
+    filtered = [
+        expense for expense in expenses
+        if expense["category"].lower() == category.lower()
+    ]
+
+    if not filtered:
+        print(f"No expenses found in category '{category}'.")
+        return
+
+    print(f"\nExpenses in category: {category}")
+
+    for index, expense in enumerate(filtered, start=1):
+        print(
+            f"{index}. "
+            f"KSh {expense['amount']:.2f} | "
+            f"{expense['desc']} | "
+            f"{expense['category']}"
+        )
+
+
+
+def show_summary():
+    print("\n--- Expense Summary ---")
+
+    if not expenses:
+        print("No expenses available.")
+        return
+
+   
+    total = sum(expense["amount"] for expense in expenses)
+
+    
+    count = len(expenses)
+
+  
+    average = total / count
+
+   
+    largest = max(expenses, key=lambda expense: expense["amount"])
+
+    print(f"Total expenses: KSh {total:.2f}")
+    print(f"Number of expenses: {count}")
+    print(f"Average expense: KSh {average:.2f}")
+
+    print(
+        f"Largest expense: KSh {largest['amount']:.2f} "
+        f"({largest['desc']})"
+    )
+
+    
+    category_totals = {}
+
+    for expense in expenses:
+        category = expense["category"]
+
+        if category not in category_totals:
+            category_totals[category] = 0
+
+        category_totals[category] += expense["amount"]
+
+    print("\n--- Per-Category Totals ---")
+
+    for category, amount in category_totals.items():
+        print(f"{category}: KSh {amount:.2f}")
+
+
+
+while True:
+    print("\n================================")
+    print("       EXPENSE MANAGER")
+    print("================================")
+    print("1. Add Expense")
+    print("2. List All")
+    print("3. Filter by Category")
+    print("4. Summary")
+    print("5. Quit")
+    print("================================")
+
+    choice = input("Choose an option (1-5): ").strip()
+
+    if choice == "1":
+        add_expense()
+
+    elif choice == "2":
+        list_expenses()
+
+    elif choice == "3":
+        filter_by_category()
+
+    elif choice == "4":
+        show_summary()
+
+    elif choice == "5":
+        print("\nThank you for using Expense Manager!")
+        print("Goodbye!")
+        break
+
+    else:
+        print("Invalid choice. Please select 1-5.")
+        {
+    "amount": 500,
+    "desc": "Lunch",
+    "category": "Food"
+}
+        
